@@ -1,0 +1,36 @@
+{
+    "inbounds": [{
+        "port": 1081,
+        "listen": "127.0.0.1",
+        "protocol": "socks"
+    }],
+    "outbounds": [{
+        "tag": "protocol_layer",
+        "protocol": "shadowsocks",
+        "settings":{
+            "servers": [{
+                "address": "ss.example.com",   
+                "port": 443,
+                "method": "aes-256-gcm",
+                "password": "password"
+            }]
+        },
+        "proxySettings": {
+            "tag": "transport_layer"
+        }
+    },
+    {
+        "tag": "transport_layer",
+        "protocol": "freedom",
+        "settings": {
+            "redirect": "ss.example.com:443"
+        },
+        "streamSettings": {
+            "network": "ws",
+            "security": "tls"
+        },
+        "mux": {
+            "enabled": true
+        }
+    }]
+}
